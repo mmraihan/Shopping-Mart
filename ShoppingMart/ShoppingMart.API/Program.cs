@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using ShoppingMart.API.Data;
+using ShoppingMart.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

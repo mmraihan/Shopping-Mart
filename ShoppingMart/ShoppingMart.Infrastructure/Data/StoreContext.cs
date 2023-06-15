@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ShoppingMart.API.Entities;
+﻿
+using Microsoft.EntityFrameworkCore;
+using ShoppingMart.Core.Entities;
 
-namespace ShoppingMart.API.Data
+
+namespace ShoppingMart.Infrastructure.Data
 {
     public class StoreContext : DbContext
     {
@@ -9,5 +11,6 @@ namespace ShoppingMart.API.Data
         {
         }
         public DbSet<Product> Products { get; set; }
+     
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace ShoppingMart.API.Entities
+﻿namespace ShoppingMart.Core.Entities
 {
     public class Product
     {
