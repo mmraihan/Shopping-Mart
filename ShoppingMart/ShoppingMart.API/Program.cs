@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using ShoppingMart.Core.Interfaces;
 using ShoppingMart.Infrastructure.Data;
+using ShoppingMart.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,7 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 {
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 
