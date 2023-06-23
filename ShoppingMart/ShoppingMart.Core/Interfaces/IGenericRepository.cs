@@ -13,3 +13,4 @@ namespace ShoppingMart.Core.Interfaces
         Task<IReadOnlyList<T>> ListAllAsync();
     }
 }
+ 
