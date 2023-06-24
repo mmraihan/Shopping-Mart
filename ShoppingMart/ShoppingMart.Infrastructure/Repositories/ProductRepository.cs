@@ -21,6 +21,11 @@ namespace ShoppingMart.Infrastructure.Repositories
        
         public async Task<IReadOnlyList<Product>> GetProductsAsync()
         {
+            //var typeId = 1;
+            //var products = _context.Products
+            //    .Where(c => c.Equals(typeId))
+            //    .Include(c=>c.ProductType).ToListAsync();
+
             return await _context.Products
                 .Include(p=>p.ProductType)
                 .Include(p=>p.ProductBrand)
