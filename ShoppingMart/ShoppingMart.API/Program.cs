@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ShoppingMart.API.Helpers;
 using ShoppingMart.Core.Interfaces;
 using ShoppingMart.Infrastructure.Data;
 using ShoppingMart.Infrastructure.Repositories;
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 });
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 var app = builder.Build();
 
