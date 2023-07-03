@@ -28,6 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseStatusCodePagesWithReExecute("/errors/{0}"); //Redirect to unmatch endpoint
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
