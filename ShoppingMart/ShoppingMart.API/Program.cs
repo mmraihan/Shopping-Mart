@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ShoppingMart.API.Helpers;
+using ShoppingMart.API.Middleware;
 using ShoppingMart.Core.Interfaces;
 using ShoppingMart.Infrastructure.Data;
 using ShoppingMart.Infrastructure.Repositories;
@@ -23,14 +24,19 @@ builder.Services.AddAutoMapper(typeof(MappingProfiles));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+app.UseMiddleware<ExceptionMiddleware>(); //Custom Middleware
+app.UseStatusCodePagesWithReExecute("/errors/{0}"); //Redirect to unmatch endpoint
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseStatusCodePagesWithReExecute("/errors/{0}"); //Redirect to unmatch endpoint
 
-app.UseHttpsRedirection();
+
+
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseAuthorization();

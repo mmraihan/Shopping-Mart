@@ -1,10 +1,11 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ShoppingMart.API.Errors;
 
 namespace ShoppingMart.API.Controllers
 {
-    [Route("errors/{code}")] // override
+    // override
+    [Route("errors/{code}")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ErrorController : BaseApiController
     {
         public IActionResult Error(int code)
