@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShoppingMart.API.Dtos;
+using ShoppingMart.API.Errors;
 using ShoppingMart.Core.Entities;
 using ShoppingMart.Core.Interfaces;
 using ShoppingMart.Core.Specifications;
@@ -53,6 +54,9 @@ namespace ShoppingMart.API.Controllers
         }
 
         [HttpGet("{id}")]
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(id);

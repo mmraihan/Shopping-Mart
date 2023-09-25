@@ -45,11 +45,10 @@ var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>(); //--Custom Middleware
 app.UseStatusCodePagesWithReExecute("/errors/{0}"); //--Redirect to unmatch endpoint
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 
 

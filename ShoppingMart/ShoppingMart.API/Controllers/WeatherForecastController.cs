@@ -4,6 +4,7 @@ namespace ShoppingMart.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)] //- ignore a controller when generating API documentation
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
