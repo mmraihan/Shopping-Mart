@@ -29,15 +29,16 @@ namespace ShoppingMart.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts( string sort, int? brandId, int? typeId)
+        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts([FromQuery] ProductSpecParams productParams)
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification(sort, brandId,typeId);
+            var spec = new ProductsWithTypesAndBrandsSpecification(productParams);
 
             var products = await _productsRepo.ListAsync(spec);
 
             return Ok(_mapper
                .Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products));
 
+            #region Unnecessary Codes
             //return products.Select(p => new ProductToReturnDto
             //{
             //    Id = p.Id,
@@ -48,7 +49,7 @@ namespace ShoppingMart.API.Controllers
             //    ProductType = p.ProductType.Name,
             //    ProductBrand = p.ProductBrand.Name
             //}).ToList();
-
+            #endregion
 
 
         }

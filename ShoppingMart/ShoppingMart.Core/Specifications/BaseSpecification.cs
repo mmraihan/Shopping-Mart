@@ -16,15 +16,28 @@ namespace ShoppingMart.Core.Specifications
 
         public Expression<Func<T, object>> OrderByDescending { get; private set; }
 
+        public int Take { get; private set; }
+
+        public int Skip { get; private set; }
+
+        public bool IsPagingEnabled { get; private set; }
+
+        #region Constructors
+
         public BaseSpecification()
         {
-            
+
         }
 
         public BaseSpecification(Expression<Func<T, bool>> criteria)
         {
-            Criteria = criteria;         
+            Criteria = criteria;
         }
+
+        #endregion
+
+
+        #region Methods
 
         protected void AddInclude(Expression<Func<T, object>> includeExpression)
         {
@@ -41,6 +54,14 @@ namespace ShoppingMart.Core.Specifications
             OrderByDescending = orderByDescExpression;
         }
 
+        protected void ApplyPaging(int skip, int take)
+        {
+            Skip = skip;
+            Take = take;
+            IsPagingEnabled = true;
+        }
+
+        #endregion
 
 
 
