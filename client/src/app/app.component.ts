@@ -13,16 +13,7 @@ export class AppComponent {
 
   products: Product[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.http.get<Pagination<Product[]>>('https://localhost:7024/api/products?pageSize=50').subscribe({
-      next: response => this.products = response.data, 
-      error: error => console.log(error),
-      complete: () => {
-        console.log('request completed');
-        console.log('extra statment');
-      }
-    })
-  }
+  
 }
