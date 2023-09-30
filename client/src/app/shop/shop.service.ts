@@ -16,11 +16,12 @@ export class ShopService {
   baseUrl: string= 'https://localhost:7024/api/'
 
 
-  getProducts(brandId?: number, productId?:number){
+  getProducts(brandId?: number, productId?:number,sort?: string){
     let params = new HttpParams();
 
     if(brandId) params= params.append('brandId', brandId)
     if(productId) params = params.append('productId', productId)
+    if(sort) params=params.append('sort',sort)
 
 
     return this.http.get<Pagination<Product[]>>(this.baseUrl+ 'products', {params});
