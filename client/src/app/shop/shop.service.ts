@@ -38,6 +38,11 @@ export class ShopService {
   getTypes(){
     return this.http.get<Type[]>(this.baseUrl+'products/types')
   }
+  
+  getProduct(id: number) {
+    return this.http.get<Product>(this.baseUrl + 'products/' + id);
+  }
+
 
 
 }
