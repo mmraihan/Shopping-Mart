@@ -5,6 +5,7 @@ using ShoppingMart.API.Helpers;
 using ShoppingMart.Core.Interfaces;
 using ShoppingMart.Infrastructure.Data;
 using ShoppingMart.Infrastructure.Repositories;
+using StackExchange.Redis;
 
 namespace ShoppingMart.API.Extensions
 {
@@ -17,6 +18,11 @@ namespace ShoppingMart.API.Extensions
             services.AddDbContext<StoreContext>(opt =>
             {
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
+            });
+            services.AddSingleton<IConnectionMultiplexer>(c =>
+            {
+                var options = ConfigurationOptions.Parse(config.GetConnectionString("Redis"));
+                return ConnectionMultiplexer.Connect(options);
             });
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
