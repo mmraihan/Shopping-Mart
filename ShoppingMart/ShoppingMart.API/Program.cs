@@ -15,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddApplicationServices(builder.Configuration); //--Extension Method
+builder.Services.AddIdentityServices(builder.Configuration); //--Extension Method
 
 
 var app = builder.Build();

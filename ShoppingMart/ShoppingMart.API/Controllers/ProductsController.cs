@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ShoppingMart.API.Dtos;
 using ShoppingMart.API.Errors;
 using ShoppingMart.API.Helpers;
@@ -49,6 +47,7 @@ namespace ShoppingMart.API.Controllers
             return Ok(new Pagination<ProductToReturnDto>(productParams.PageIndex, productParams.PageSize,totalItems,data));
 
             #region Unnecessary Codes
+
             //return products.Select(p => new ProductToReturnDto
             //{
             //    Id = p.Id,
@@ -59,6 +58,7 @@ namespace ShoppingMart.API.Controllers
             //    ProductType = p.ProductType.Name,
             //    ProductBrand = p.ProductBrand.Name
             //}).ToList();
+
             #endregion
 
 
@@ -89,6 +89,7 @@ namespace ShoppingMart.API.Controllers
             //    ProductType = product.ProductType.Name,
             //    ProductBrand = product.ProductBrand.Name
             //};
+
             #endregion
 
 
