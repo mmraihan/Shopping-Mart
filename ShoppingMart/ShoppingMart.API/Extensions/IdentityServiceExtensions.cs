@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using ShoppingMart.Core.Entities.Identity;
 using ShoppingMart.Infrastructure.Identity;
 
 namespace ShoppingMart.API.Extensions
@@ -12,6 +14,18 @@ namespace ShoppingMart.API.Extensions
             {
                 opt.UseSqlite(config.GetConnectionString("IdentityConnection"));
             });
+
+            services.AddIdentityCore<AppUser>(opt =>
+            {
+
+            })
+            .AddEntityFrameworkStores<AppIdentityDbContext>()
+            .AddSignInManager<SignInManager<AppUser>>();
+
+            services.AddAuthentication();
+            services.AddAuthorization();
+            
+
             return services;
         }
     }
