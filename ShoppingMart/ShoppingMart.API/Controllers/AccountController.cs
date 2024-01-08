@@ -3,19 +3,24 @@ using Microsoft.AspNetCore.Mvc;
 using ShoppingMart.API.Dtos;
 using ShoppingMart.API.Errors;
 using ShoppingMart.Core.Entities.Identity;
+using ShoppingMart.Core.Interfaces;
 
 namespace ShoppingMart.API.Controllers
 {
 
     public class AccountController : BaseApiController
     {
+
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly ITokenService _tokenService;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
-        {       
+
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService)
+        {
             _userManager = userManager;
             _signInManager = signInManager;
+            _tokenService = tokenService;
         }
 
 
@@ -34,7 +39,7 @@ namespace ShoppingMart.API.Controllers
             return new UserDto
             {
                 Email = user.Email,
-                Token = "Dummy Token",
+                Token = _tokenService.CreateToken(user),
                 DisplayName = user.DisplayName
             };
         }
@@ -59,7 +64,7 @@ namespace ShoppingMart.API.Controllers
             return new UserDto
             {
                 DisplayName=user.DisplayName,
-                Token= "Dummy Token",
+                Token = _tokenService.CreateToken(user),
                 Email = user.Email,
             };
 

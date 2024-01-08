@@ -5,6 +5,7 @@ using ShoppingMart.API.Helpers;
 using ShoppingMart.Core.Interfaces;
 using ShoppingMart.Infrastructure.Data;
 using ShoppingMart.Infrastructure.Repositories;
+using ShoppingMart.Infrastructure.Services;
 using StackExchange.Redis;
 
 namespace ShoppingMart.API.Extensions
@@ -43,7 +44,7 @@ namespace ShoppingMart.API.Extensions
                     return new BadRequestObjectResult(errorResponse);
                 };
             });
-
+            services.AddScoped<ITokenService, TokenService>();
             services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy", policy =>
