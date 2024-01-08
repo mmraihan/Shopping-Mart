@@ -30,7 +30,7 @@ namespace ShoppingMart.Infrastructure.Identity
                     }
                 };
 
-                await userManager.CreateAsync(user, "Seven@8");
+                await userManager.CreateAsync(user, "Seven.9@Ten");
             }
         }
     }
