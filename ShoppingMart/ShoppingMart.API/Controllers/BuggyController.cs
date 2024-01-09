@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingMart.API.Errors;
 using ShoppingMart.Infrastructure.Data;
@@ -47,5 +48,14 @@ namespace ShoppingMart.API.Controllers
         {
             return Ok();
         }
+
+
+        [HttpGet("testauth")]
+        [Authorize]
+        public ActionResult<string> GetSecretData()
+        {
+            return "Secret Data";
+        }
+
     }
 }
