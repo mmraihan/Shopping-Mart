@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingMart.API.Dtos;
 using ShoppingMart.API.Errors;
+using ShoppingMart.API.Extensions;
 using ShoppingMart.Core.Entities.Identity;
 using ShoppingMart.Core.Interfaces;
-using System.Security.Claims;
 
 namespace ShoppingMart.API.Controllers
 {
@@ -16,13 +17,16 @@ namespace ShoppingMart.API.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
+        private readonly IMapper _mapper;
 
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, 
+            IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
+            _mapper = mapper;
         }
 
 
@@ -30,9 +34,7 @@ namespace ShoppingMart.API.Controllers
         [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
-            var email = User.FindFirstValue(ClaimTypes.Email);
-
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByEmailFromClaimsPrincipal(User);
 
             return new UserDto
             {
@@ -51,16 +53,12 @@ namespace ShoppingMart.API.Controllers
 
         [Authorize]
         [HttpGet("address")]
-        public async Task<ActionResult<Address>> GetUserAddress()
+        public async Task<ActionResult<AddressDto>> GetUserAddress()
         {
-            var email = User.FindFirstValue(ClaimTypes.Email);
 
-            var user = await _userManager.FindByEmailAsync(email);
-
-            return user.Address;
-
+            var user = await _userManager.FindUserByClaimsPrincipleWithAddress(User);
+            return _mapper.Map<Address, AddressDto>(user.Address);
         }
-
 
 
         [HttpPost("login")]
@@ -109,6 +107,21 @@ namespace ShoppingMart.API.Controllers
 
         }
 
+
+        [Authorize]
+        [HttpPut("address")]
+        public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto address)
+        {
+            var user = await _userManager.FindUserByClaimsPrincipleWithAddress(User);
+
+            user.Address = _mapper.Map<AddressDto, Address>(address);
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded) return Ok(_mapper.Map<Address,AddressDto>(user.Address));
+
+            return BadRequest("Problem updating the user");
+        }
 
     }
 }

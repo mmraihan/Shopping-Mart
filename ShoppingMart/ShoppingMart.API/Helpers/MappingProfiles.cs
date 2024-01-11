@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ShoppingMart.API.Dtos;
 using ShoppingMart.Core.Entities;
+using ShoppingMart.Core.Entities.Identity;
 
 namespace ShoppingMart.API.Helpers
 {
@@ -12,6 +13,9 @@ namespace ShoppingMart.API.Helpers
                 .ForMember(c => c.ProductBrand, o => o.MapFrom(o => o.ProductBrand.Name))
                 .ForMember(c => c.ProductType, o => o.MapFrom(o => o.ProductType.Name))
                 .ForMember(c => c.PictureUrl, o => o.MapFrom<ProductUrlResolver>());
+
+            CreateMap<Address, AddressDto>().ReverseMap();
         }
+
     }
 }
