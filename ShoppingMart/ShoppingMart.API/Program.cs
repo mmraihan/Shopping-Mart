@@ -19,6 +19,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddApplicationServices(builder.Configuration); //--Extension Method
 builder.Services.AddIdentityServices(builder.Configuration); //--Extension Method
+builder.Services.AddSwaggerDocumentation();//--Extension Method
 
 
 var app = builder.Build();
@@ -27,9 +28,7 @@ var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>(); //--Custom Middleware
 app.UseStatusCodePagesWithReExecute("/errors/{0}"); //--Redirect to unmatch endpoint
 
-
-app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerDocumentation();
 
 
 app.UseStaticFiles();

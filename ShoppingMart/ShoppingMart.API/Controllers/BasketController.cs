@@ -32,12 +32,13 @@ namespace ShoppingMart.API.Controllers
             var customerBasket = _mapper.Map<CustomerBasketDto, CustomerBasket>(basket);
             var updatedData = await _basketRepository.UpdateBasketAsync(customerBasket);
             return Ok(updatedData);
+
         }
 
         [HttpDelete]
 
         public async Task DeleteBasket(string id)
-        {
+        {  
             await _basketRepository.DeleteBasketAsync(id);
         }
     }
