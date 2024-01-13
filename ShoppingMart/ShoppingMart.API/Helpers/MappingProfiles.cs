@@ -15,6 +15,9 @@ namespace ShoppingMart.API.Helpers
                 .ForMember(c => c.PictureUrl, o => o.MapFrom<ProductUrlResolver>());
 
             CreateMap<Address, AddressDto>().ReverseMap();
+            CreateMap<CustomerBasketDto, CustomerBasket>();
+            CreateMap<BasketItemDto, BasketItem>();
+
         }
 
     }
