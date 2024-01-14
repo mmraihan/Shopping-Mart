@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '../account.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,5 +22,7 @@ export class LoginComponent {
       next:user=>console.log(user)     
     })   
   }
+
+
 
 }
