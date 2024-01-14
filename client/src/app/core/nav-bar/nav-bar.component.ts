@@ -1,3 +1,4 @@
+import { AccountService } from './../../account/account.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent {
+
+  constructor( public accountService: AccountService) { }
 
 }
