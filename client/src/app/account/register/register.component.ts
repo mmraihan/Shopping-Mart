@@ -15,6 +15,8 @@ export class RegisterComponent {
 
   complexPassword = "(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$"
 
+   errors: string[] | null= null;
+
   //testing = Abcd@5678
 
   registerForm = this.fb.group({
@@ -28,7 +30,8 @@ export class RegisterComponent {
 
   onSubmit() {
     this.accountService.register(this.registerForm.value).subscribe({
-      next: () => this.router.navigateByUrl('/shop')
+      next: () => this.router.navigateByUrl('/shop'),
+      error:(err)=> this.errors=err.errors,  
     })
   }
 
