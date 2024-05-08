@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Product } from './shared/models/product';
 import { AccountService } from './account/account.service';
+import { BasketService } from './basket/basket.service';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +13,12 @@ export class AppComponent {
 
   products: Product[] = [];
 
+  constructor(private accountService: AccountService, private basketService: BasketService) {}
   ngOnInit() {
     this.loadCurrentUser();
+    const basketId = localStorage.getItem('basket_Id')
+    if(basketId) this.basketService.getBasket(basketId);
   }
-
-  constructor(private accountService: AccountService) {}
 
   loadCurrentUser() {
     const token = localStorage.getItem('token');
