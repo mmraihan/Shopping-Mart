@@ -8,6 +8,8 @@ import { BasketService } from './basket.service';
 })
 export class BasketComponent {
 
-  constructor (public basketService: BasketService){}
+  constructor (public basketService: BasketService){
+    console.log(basketService.basketSource$)
+  }
 
 }

@@ -1,4 +1,4 @@
-import { Basket, BasketItem } from './../shared/models/basket';
+import { Basket, BasketItem, BasketTotals } from './../shared/models/basket';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -13,6 +13,9 @@ export class BasketService {
   baseUl= environment.apiUrl
   private basketSource= new BehaviorSubject<Basket | null>(null);
   basketSource$ = this.basketSource.asObservable();
+
+  private basketTotalSource = new BehaviorSubject<BasketTotals | null>(null);
+  basketTotalSource$ = this.basketTotalSource.asObservable();
 
 
   constructor(private http: HttpClient) { }
@@ -53,7 +56,7 @@ export class BasketService {
       productName: item.name,
       price: item.price,
       quantity:0,
-      pictureUrl:item.pictureUrl,
+      pictureurl:item.pictureUrl,
       brand:item.productBrand,
       type:item.productBrand     
     }

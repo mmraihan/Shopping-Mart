@@ -5,7 +5,7 @@ export interface BasketItem {
     productName: string;
     price: number;
     quantity: number;
-    pictureUrl: string;
+    pictureurl: string;
     brand: string;
     type: string;
 }
@@ -18,4 +18,9 @@ export interface Basket {
 export class Basket implements Basket {  
     id = cuid();
     items: BasketItem[] = [];
+}
+export interface BasketTotals {
+    shipping: number;
+    subtotal: number;
+    total: number;
 }
