@@ -22,13 +22,19 @@ export class BasketService {
 
   getBasket(id: string){
     return this.http.get<Basket>(this.baseUl+'basket?id'+ id).subscribe({
-      next: basket=>this.basketSource.next(basket)
+      next: basket=>{
+        this.basketSource.next(basket);
+        this.calculateTotals();
+      }
     })
   }
 
   setBasket(basket: Basket){
     return this.http.post<Basket>(this.baseUl+ 'basket', basket).subscribe({
-      next: basket=> this.basketSource.next(basket)
+      next: basket=> {
+        this.basketSource.next(basket);
+        this.calculateTotals();
+      }
     })
   }
 
@@ -71,6 +77,15 @@ export class BasketService {
       items.push(itemToAdd);
     }
     return items;
+  }
+
+  private calculateTotals() {
+    const basket = this.getCurrentBasketValue();
+    if (!basket) return;
+    const shipping =0;
+    const subtotal = basket.items.reduce((a, b) => (b.price * b.quantity) + a, 0);
+    const total = subtotal + shipping;
+    this.basketTotalSource.next({shipping, total, subtotal});
   }
 
 

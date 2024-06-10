@@ -24,3 +24,4 @@ export interface BasketTotals {
     subtotal: number;
     total: number;
 }
+
